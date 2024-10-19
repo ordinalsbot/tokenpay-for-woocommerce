@@ -6,7 +6,7 @@ Read the plugin installation instructions below to get started with OrdinalsBot 
 
 ## Install
 
-Sign up for an OrdinalsBot account at <https://ordinalsbot.com>.
+Sign up for an OrdinalsBot account at <https://ordinalsbot.com>. Reach out to us via discord to get a TokenPay API Key.
 
 ### via WooCommerce FTP Uploader
 
@@ -37,3 +37,6 @@ Sign up for an OrdinalsBot account at <https://ordinalsbot.com>.
 5. Don't forget check **Enable Bitcoin payments via OrdinalsBot** checkbox in WooCommerce-OrdinalsBot Plugin settings.
 
 6. Don't forget to disable "block-based" checkout otherwise this plugin will not show up on the checkout page. You can do this via "checkout" page settings.
+
+## Use & Documentation
+Check Tokenpay API Documentation at [https://docs.ordinalsbot.com](https://docs.ordinalsbot.com/token-pay/api-docs)
