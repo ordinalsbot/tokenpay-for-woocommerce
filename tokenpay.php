@@ -4,14 +4,14 @@
 Plugin Name: WooCommerce Payment Gateway - OrdinalsBot
 Plugin URI: https://ordinalsbot.com
 Description: Accept Bitcoin Instantly via OrdinalsBot
-Version: 0.0.3
+Version: 0.0.4
 Author: OrdinalsBot
 Author URI: https://ordinalsbot.com
 */
 
 add_action('plugins_loaded', 'ordinalsbot_init');
 
-define('ORDINALSBOT_WOOCOMMERCE_VERSION', '0.0.3');
+define('ORDINALSBOT_WOOCOMMERCE_VERSION', '0.0.4');
 define('ORDINALSBOT_CHECKOUT_PATH', 'https://ordinalsbot.com/tokenpay/checkout/');
 
 function ordinalsbot_init()
@@ -33,10 +33,19 @@ function ordinalsbot_init()
             $this->id = 'ordinalsbot';
             $this->has_fields = false;
             $this->method_title = 'OrdinalsBot';
+            $this->icon = PLUGIN_DIR . 'assets/tokenpay.svg';
 
             $this->init_form_fields();
             $this->init_settings();
 
+            // Use uploaded icon if set, else fall back to default
+            $uploaded = $this->get_option( 'icon_upload' );
+            if ( ! empty( $uploaded ) ) {
+                $this->icon = esc_url( $uploaded );
+            } else {
+                $this->icon = PLUGIN_DIR . 'assets/tokenpay.svg';
+            }
+            
             $this->title = $this->get_option('title');
             $this->description = $this->get_option('description');
             $this->api_secret = $this->get_option('api_secret');
@@ -82,6 +91,12 @@ function ordinalsbot_init()
                     'description' => __('The payment method description which a customer sees at the checkout of your store.', 'woocommerce'),
                     'default' => __('Powered by OrdinalsBot'),
                 ),
+                'icon_upload' => array(
+                    'title'       => __( 'Icon Upload', 'woocommerce' ),
+                    'type'        => 'file',
+                    'description' => __( 'Upload a custom icon (SVG/PNG). Leave blank to use the default.', 'woocommerce' ),
+                    'default'     => '',
+                ),
                 'api_auth_token' => array(
                     'title' => __('API Auth Token', 'woocommerce'),
                     'type' => 'text',
@@ -95,6 +110,23 @@ function ordinalsbot_init()
                   'default' => ORDINALSBOT_CHECKOUT_PATH,
               ),
             );
+        }
+
+        public function process_admin_options() {
+            // Save the other settings first
+            parent::process_admin_options();
+    
+            // Handle our file upload field
+            if ( isset( $_FILES['woocommerce_ordinalsbot_icon_upload'] ) && ! empty( $_FILES['woocommerce_ordinalsbot_icon_upload']['name'] ) ) {
+                // Allow SVG, PNG, JPG
+                $overrides = array( 'test_form' => false );
+                $upload    = wp_handle_upload( $_FILES['woocommerce_ordinalsbot_icon_upload'], $overrides );
+    
+                if ( empty( $upload['error'] ) && ! empty( $upload['url'] ) ) {
+                    // Store the URL back into our settings
+                    $this->update_option( 'icon_upload', esc_url_raw( $upload['url'] ) );
+                }
+            }
         }
 
         public function thankyou()
