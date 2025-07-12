@@ -4,14 +4,14 @@
 Plugin Name: WooCommerce Payment Gateway - OrdinalsBot
 Plugin URI: https://ordinalsbot.com
 Description: Accept Bitcoin Instantly via OrdinalsBot
-Version: 0.0.4
+Version: 0.0.5
 Author: OrdinalsBot
 Author URI: https://ordinalsbot.com
 */
 
 add_action('plugins_loaded', 'ordinalsbot_init');
 
-define('ORDINALSBOT_WOOCOMMERCE_VERSION', '0.0.4');
+define('ORDINALSBOT_WOOCOMMERCE_VERSION', '0.0.5');
 define('ORDINALSBOT_CHECKOUT_PATH', 'https://ordinalsbot.com/tokenpay/checkout/');
 
 function ordinalsbot_init()
@@ -185,6 +185,9 @@ function ordinalsbot_init()
                 error_log('local order ID: ' . $order->get_id());
                 update_post_meta($order_id, 'ordinalsbot_order_id', $ordinalsbot_order_id);
 
+                // add order note with the OrdinalsBot order ID and checkout URL
+                $order->add_order_note(__('Tokenpay order created: ' . $ordinalsbot_order_id . ' - <a href="' . $this->checkout_url . $ordinalsbot_order_id . '" target="_blank">View Checkout</a>', 'ordinalsbot'));
+                
                 return array(
                     'result' => 'success',
                     'redirect' => $this->checkout_url . $ordinalsbot_order_id,

@@ -17,7 +17,7 @@ Sign up for an OrdinalsBot account at <https://ordinalsbot.com>. Reach out to us
 
 2. Go to *Admin » Plugins » Add New* in admin panel.
 
-3. Upload *ordinalsbot-for-woocommerce-0.0.4.zip* in *Upload Plugin*
+3. Upload *ordinalsbot-for-woocommerce-0.0.5.zip* in *Upload Plugin*
 
 4. Activate the plugin through the **Plugins** menu in WordPress.
 
@@ -29,7 +29,7 @@ Sign up for an OrdinalsBot account at <https://ordinalsbot.com>. Reach out to us
 
 ### via FTP
 
-1. Download [ordinalsbot-for-woocommerce-0.0.4.zip](https://github.com/ordinalsbot/tokenpay-for-woocommerce/archive/refs/heads/main.zip).
+1. Download [ordinalsbot-for-woocommerce-0.0.5.zip](https://github.com/ordinalsbot/tokenpay-for-woocommerce/archive/refs/heads/main.zip).
 
 2. Unzip and upload **ordinalsbot-for-woocommerce/** directory to **/wp-content/plugins/** through FTP.
 
